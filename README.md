@@ -1,38 +1,207 @@
-# Financial Document Analyzer - Debug Assignment
 
-## Project Overview
-A comprehensive financial document analysis system that processes corporate reports, financial statements, and investment documents using AI-powered analysis agents.
 
-## Getting Started
+# 📄 Financial Document Analyzer
 
-### Install Required Libraries
-```sh
-pip install -r requirement.txt
+### AI Internship – Debug Challenge Submission
+
+> ✅ This project was completed as part of an **AI Internship Debug Challenge** focused on debugging, prompt optimization, and system design using CrewAI.
+
+---
+
+## 📌 Project Overview
+
+This repository contains a **financial document analysis system** built using **CrewAI**.
+The original codebase had multiple **deterministic bugs**, **broken integrations**, and **inefficient LLM prompts**.
+
+As part of this assignment, I:
+
+* Identified and fixed all runtime and logical issues
+* Optimized prompts for accuracy, structure, and cost efficiency
+* Improved overall code reliability and repository hygiene
+
+The system processes **financial PDF documents** and generates structured insights such as key metrics, risks, and summaries.
+
+---
+
+## 🐛 Bugs Identified & Fixes
+
+### 🔹 `agents.py`
+
+**Issues**
+
+* Circular reference: `llm = llm`
+* Incorrect import path for `Agent`
+* Wrong parameter name (`tool` instead of `tools`)
+
+**Fixes**
+
+* Initialized a proper LLM instance
+* Corrected Agent import
+* Replaced `tool` with `tools` parameter
+
+---
+
+### 🔹 `tools.py`
+
+**Issues**
+
+* PDF parsing library not imported
+* Missing `self` parameter in class methods
+* Incomplete text extraction logic
+
+**Fixes**
+
+* Integrated `pdfplumber` for reliable PDF parsing
+* Added missing `self` parameter
+* Implemented full-page text extraction
+
+---
+
+### 🔹 `tasks.py`
+
+**Issues**
+
+* Incorrect agent references
+* Task–agent mismatch
+
+**Fixes**
+
+* Corrected agent naming
+* Ensured valid task-to-agent mapping
+
+---
+
+### 🔹 `main.py`
+
+**Issues**
+
+* Runtime inputs (file path) not passed to the Crew
+* Execution failed for dynamic document inputs
+
+**Fixes**
+
+* Passed inputs using `crew.kickoff(inputs={...})`
+* Improved execution stability
+
+---
+
+## ✨ Prompt Optimization
+
+### ❌ Original Problems
+
+* Vague and underspecified prompts
+* No role definition
+* No enforced output format
+* Higher hallucination risk
+
+### ✅ Improvements
+
+* Added clear role definition (financial analyst)
+* Step-by-step reasoning instructions
+* Enforced structured JSON output
+
+**Impact**
+
+* More accurate responses
+* Consistent, parseable outputs
+* Reduced token waste
+
+---
+
+## ⚙️ Setup & Usage
+
+### Prerequisites
+
+* Python 3.9+
+* OpenAI API Key
+
+### Installation
+
+```bash
+pip install -r requirements.txt
 ```
 
-### Sample Document
-The system analyzes financial documents like Tesla's Q2 2025 financial update.
+### Environment Variables
 
-**To add Tesla's financial document:**
-1. Download the Tesla Q2 2025 update from: https://www.tesla.com/sites/default/files/downloads/TSLA-Q2-2025-Update.pdf
-2. Save it as `data/sample.pdf` in the project directory
-3. Or upload any financial PDF through the API endpoint
+```bash
+export OPENAI_API_KEY=your_api_key
+```
 
-**Note:** Current `data/sample.pdf` is a placeholder - replace with actual Tesla financial document for proper testing.
+### Run the Project
 
-# You're All Not Set!
-🐛 **Debug Mode Activated!** The project has bugs waiting to be squashed - your mission is to fix them and bring it to life.
+```bash
+python main.py
+```
 
-## Debugging Instructions
+---
 
-1. **Identify the Bug**: Carefully read the code in each file and understand the expected behavior. There is a bug in each line of code. So be careful.
-2. **Fix the Bug**: Implement the necessary changes to fix the bug.
-3. **Test the Fix**: Run the project and verify that the bug is resolved.
-4. **Repeat**: Continue this process until all bugs are fixed.
+## 📥 Input & 📤 Output
 
-## Expected Features
-- Upload financial documents (PDF format)
-- AI-powered financial analysis
-- Investment recommendations
-- Risk assessment
-- Market insights
+**Input**
+
+* Path to a financial PDF document
+
+**Output**
+
+* Extracted financial metrics
+* Risk indicators and anomalies
+* Structured summary of insights
+
+---
+
+## 🚀 Bonus Enhancements (Design-Level)
+
+### 🔄 Queue Worker Model
+
+* Designed async processing using **Redis + Celery**
+* Enables concurrent document analysis
+* Improves scalability and reliability
+
+### 🗄️ Database Integration
+
+* Proposed persistent storage for:
+
+  * Analysis results
+  * Document metadata
+  * Timestamps
+* Supports auditing and result reuse
+
+---
+
+## 🛠️ Tech Stack
+
+* Python
+* CrewAI
+* LangChain
+* OpenAI API
+* pdfplumber
+* Redis & Celery (Bonus)
+
+---
+
+## 📂 Repository Hygiene
+
+* Removed virtual environments and cache files
+* Added `.gitignore` for clean version control
+* Optimized repository size for deployment
+
+---
+
+## 👤 Author
+
+**Name:** *Your Name*
+**Assignment:** AI Internship – Debug Challenge
+
+---
+
+## ✅ Summary
+
+This submission demonstrates:
+
+* Strong debugging and code analysis skills
+* Effective LLM prompt engineering
+* Production-aware system design thinking
+* Clean documentation and repo practices
+
+---
+
