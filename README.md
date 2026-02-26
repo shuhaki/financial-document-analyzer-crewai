@@ -1,14 +1,14 @@
 
 
-# 📄 Financial Document Analyzer
+#  Financial Document Analyzer
 
 ### AI Internship – Debug Challenge Submission
 
-> ✅ This project was completed as part of an **AI Internship Debug Challenge** focused on debugging, prompt optimization, and system design using CrewAI.
+> This project was completed as part of an **AI Internship Debug Challenge** focused on debugging, prompt optimization, and system design using CrewAI.
 
 ---
 
-## 📌 Project Overview
+##  Project Overview
 
 This repository contains a **financial document analysis system** built using **CrewAI**.
 The original codebase had multiple **deterministic bugs**, **broken integrations**, and **inefficient LLM prompts**.
@@ -23,9 +23,9 @@ The system processes **financial PDF documents** and generates structured insigh
 
 ---
 
-## 🐛 Bugs Identified & Fixes
+##  Bugs Identified & Fixes
 
-### 🔹 `agents.py`
+###  `agents.py`
 
 **Issues**
 
@@ -41,7 +41,7 @@ The system processes **financial PDF documents** and generates structured insigh
 
 ---
 
-### 🔹 `tools.py`
+###  `tools.py`
 
 **Issues**
 
@@ -57,7 +57,7 @@ The system processes **financial PDF documents** and generates structured insigh
 
 ---
 
-### 🔹 `tasks.py`
+###  `tasks.py`
 
 **Issues**
 
@@ -71,7 +71,7 @@ The system processes **financial PDF documents** and generates structured insigh
 
 ---
 
-### 🔹 `main.py`
+### `main.py`
 
 **Issues**
 
@@ -85,16 +85,16 @@ The system processes **financial PDF documents** and generates structured insigh
 
 ---
 
-## ✨ Prompt Optimization
+##  Prompt Optimization
 
-### ❌ Original Problems
+###  Original Problems
 
 * Vague and underspecified prompts
 * No role definition
 * No enforced output format
 * Higher hallucination risk
 
-### ✅ Improvements
+###  Improvements
 
 * Added clear role definition (financial analyst)
 * Step-by-step reasoning instructions
@@ -108,7 +108,7 @@ The system processes **financial PDF documents** and generates structured insigh
 
 ---
 
-## ⚙️ Setup & Usage
+##  Setup & Usage
 
 ### Prerequisites
 
@@ -149,15 +149,15 @@ python main.py
 
 ---
 
-## 🚀 Bonus Enhancements (Design-Level)
+## Bonus Enhancements (Design-Level)
 
-### 🔄 Queue Worker Model
+###  Queue Worker Model
 
 * Designed async processing using **Redis + Celery**
 * Enables concurrent document analysis
 * Improves scalability and reliability
 
-### 🗄️ Database Integration
+###  Database Integration
 
 * Proposed persistent storage for:
 
@@ -168,7 +168,7 @@ python main.py
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 * Python
 * CrewAI
@@ -179,7 +179,7 @@ python main.py
 
 ---
 
-## 📂 Repository Hygiene
+## 📂Repository Hygiene
 
 * Removed virtual environments and cache files
 * Added `.gitignore` for clean version control
@@ -187,14 +187,14 @@ python main.py
 
 ---
 
-## 👤 Author
+##  Author
 
-**Name:** *Your Name*
+**Name:** *Arpit Gupta *
 **Assignment:** AI Internship – Debug Challenge
 
 ---
 
-## ✅ Summary
+## Summary
 
 This submission demonstrates:
 
