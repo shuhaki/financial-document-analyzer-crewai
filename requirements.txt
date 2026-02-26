@@ -1,0 +1,9 @@
+click==8.1.7
+crewai
+crewai-tools
+fastapi
+python-dotenv
+pypdf
+langchain-openai
+uvicorn
+
