@@ -1,207 +1,155 @@
+# Financial Document Analyzer
 
+## Project Overview
 
-#  Financial Document Analyzer
+A comprehensive financial document analysis system that processes corporate reports, financial statements, and investment documents using AI-powered analysis agents. Built with FastAPI and CrewAI, it provides automated financial analysis, investment recommendations, risk assessment, and market insights.
 
-### AI Internship – Debug Challenge Submission
+## Features
 
-> This project was completed as part of an **AI Internship Debug Challenge** focused on debugging, prompt optimization, and system design using CrewAI.
+- Upload financial documents (PDF format)
+- AI-powered financial analysis using CrewAI agents
+- Investment recommendations
+- Risk assessment
+- Market insights
+- RESTful API endpoints
+- Async processing for better performance
 
----
+## Project Structure
 
-##  Project Overview
+```
+financial-document-analyzer/
+├── agents.py           # AI agent definitions
+├── main.py             # FastAPI application and endpoints
+├── task.py             # Task definitions for the crew
+├── tools.py            # Custom tools for document processing
+├── requirements.txt    # Python dependencies
+├── data/               # Data directory for uploaded files
+│   └── TSLA-Q2-2025-Update.pdf
+└── outputs/            # Analysis output files
+```
 
-This repository contains a **financial document analysis system** built using **CrewAI**.
-The original codebase had multiple **deterministic bugs**, **broken integrations**, and **inefficient LLM prompts**.
-
-As part of this assignment, I:
-
-* Identified and fixed all runtime and logical issues
-* Optimized prompts for accuracy, structure, and cost efficiency
-* Improved overall code reliability and repository hygiene
-
-The system processes **financial PDF documents** and generates structured insights such as key metrics, risks, and summaries.
-
----
-
-##  Bugs Identified & Fixes
-
-###  `agents.py`
-
-**Issues**
-
-* Circular reference: `llm = llm`
-* Incorrect import path for `Agent`
-* Wrong parameter name (`tool` instead of `tools`)
-
-**Fixes**
-
-* Initialized a proper LLM instance
-* Corrected Agent import
-* Replaced `tool` with `tools` parameter
-
----
-
-###  `tools.py`
-
-**Issues**
-
-* PDF parsing library not imported
-* Missing `self` parameter in class methods
-* Incomplete text extraction logic
-
-**Fixes**
-
-* Integrated `pdfplumber` for reliable PDF parsing
-* Added missing `self` parameter
-* Implemented full-page text extraction
-
----
-
-###  `tasks.py`
-
-**Issues**
-
-* Incorrect agent references
-* Task–agent mismatch
-
-**Fixes**
-
-* Corrected agent naming
-* Ensured valid task-to-agent mapping
-
----
-
-### `main.py`
-
-**Issues**
-
-* Runtime inputs (file path) not passed to the Crew
-* Execution failed for dynamic document inputs
-
-**Fixes**
-
-* Passed inputs using `crew.kickoff(inputs={...})`
-* Improved execution stability
-
----
-
-##  Prompt Optimization
-
-###  Original Problems
-
-* Vague and underspecified prompts
-* No role definition
-* No enforced output format
-* Higher hallucination risk
-
-###  Improvements
-
-* Added clear role definition (financial analyst)
-* Step-by-step reasoning instructions
-* Enforced structured JSON output
-
-**Impact**
-
-* More accurate responses
-* Consistent, parseable outputs
-* Reduced token waste
-
----
-
-##  Setup & Usage
+## Getting Started
 
 ### Prerequisites
 
-* Python 3.9+
-* OpenAI API Key
+- Python 3.8+
+- OpenAI API key (set in `.env` file as `OPENAI_API_KEY`)
 
 ### Installation
 
-```bash
+1. Clone the repository:
+```
+sh
+git clone <repository-url>
+cd financial-document-analyzer
+```
+
+2. Install required libraries:
+```
+sh
 pip install -r requirements.txt
 ```
 
-### Environment Variables
-
-```bash
-export OPENAI_API_KEY=your_api_key
+3. Set up your OpenAI API key:
+```
+sh
+echo "OPENAI_API_KEY=your_api_key_here" > .env
 ```
 
-### Run the Project
+### Running the Application
 
-```bash
+Start the FastAPI server:
+```
+sh
 python main.py
 ```
 
----
+The API will be available at `http://localhost:8000`
 
-## 📥 Input & 📤 Output
+## API Documentation
 
-**Input**
+### Endpoints
 
-* Path to a financial PDF document
+#### Health Check
+```
+GET /
+```
+Returns the API status.
 
-**Output**
+**Response:**
+```
+json
+{
+  "message": "Financial Document Analyzer API is running"
+}
+```
 
-* Extracted financial metrics
-* Risk indicators and anomalies
-* Structured summary of insights
+#### Analyze Document
+```
+POST /analyze
+```
+Analyze a financial document and provide investment insights.
 
----
+**Parameters:**
+- `file` (required): PDF file to upload
+- `query` (optional): Custom analysis query (default: "Analyze this financial document for investment insights")
 
-## Bonus Enhancements (Design-Level)
+**Response:**
+```
+json
+{
+  "status": "success",
+  "query": "Analyze this financial document for investment insights",
+  "analysis": "...",
+  "file_processed": "filename.pdf"
+}
+```
 
-###  Queue Worker Model
+### Interactive API Documentation
 
-* Designed async processing using **Redis + Celery**
-* Enables concurrent document analysis
-* Improves scalability and reliability
+FastAPI provides interactive API documentation:
+- Swagger UI: `http://localhost:8000/docs`
+- ReDoc: `http://localhost:8000/redoc`
 
-###  Database Integration
+## Sample Document
 
-* Proposed persistent storage for:
+The system includes a sample Tesla Q2 2025 financial update located at:
+```
+data/TSLA-Q2-2025-Update.pdf
+```
 
-  * Analysis results
-  * Document metadata
-  * Timestamps
-* Supports auditing and result reuse
+## Usage Examples
 
----
+### Using cURL
 
-##  Tech Stack
+```
+sh
+curl -X POST "http://localhost:8000/analyze" \
+  -F "file=@data/TSLA-Q2-2025-Update.pdf" \
+  -F "query=What are the key financial highlights?"
+```
 
-* Python
-* CrewAI
-* LangChain
-* OpenAI API
-* pdfplumber
-* Redis & Celery (Bonus)
+### Using Python
 
----
+```
+python
+import requests
 
-## 📂Repository Hygiene
+url = "http://localhost:8000/analyze"
+files = {"file": open("data/TSLA-Q2-2025-Update.pdf", "rb")}
+data = {"query": "Provide investment recommendations based on this financial document"}
 
-* Removed virtual environments and cache files
-* Added `.gitignore` for clean version control
-* Optimized repository size for deployment
+response = requests.post(url, files=files, data=data)
+print(response.json())
+```
 
----
+## Technology Stack
 
-##  Author
+- **FastAPI**: Modern Python web framework
+- **CrewAI**: Multi-agent AI orchestration
+- **LangChain**: AI development framework
+- **PyPDF**: PDF processing
+- **Uvicorn**: ASGI server
 
-**Name:** *Arpit Gupta *
-**Assignment:** AI Internship – Debug Challenge
 
----
-
-## Summary
-
-This submission demonstrates:
-
-* Strong debugging and code analysis skills
-* Effective LLM prompt engineering
-* Production-aware system design thinking
-* Clean documentation and repo practices
-
----
 
